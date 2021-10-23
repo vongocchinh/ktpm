@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import '../setupTest'
 import AddProduct from '../pages/AddProduct'
 
+
 const initialState = {}
 const mockStore = configureStore()
 let wrapper
@@ -37,29 +38,8 @@ describe('AddProduct test', () => {
     // input desc
     wrapper.find('#desc').simulate('change', {
       target: {
-        desc: 'desc',
+        name: 'desc',
         value: 'laptop bekas'
-      }
-    })
-    // input best price
-    wrapper.find('#best_price').simulate('change', {
-      target: {
-        best_price: 'best_price',
-        value: 'laptop'
-      }
-    })
-    // input discount
-    wrapper.find('#discount').simulate('change', {
-      target: {
-        discount: 'discount',
-        value: 'laptop'
-      }
-    })
-    // input final price
-    wrapper.find('#final_price').simulate('change', {
-      target: {
-        final_price: 'final_price',
-        value: 'laptop'
       }
     })
   })

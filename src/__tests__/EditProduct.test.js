@@ -41,27 +41,6 @@ describe('EditProduct test', () => {
         value: 'laptop bekas'
       }
     })
-    // input best price
-    wrapper.find('#best_price').simulate('change', {
-      target: {
-        best_price: 'best_price',
-        value: 'laptop'
-      }
-    })
-    // input discount
-    wrapper.find('#discount').simulate('change', {
-      target: {
-        discount: 'discount',
-        value: 'laptop'
-      }
-    })
-    // input final price
-    wrapper.find('#final_price').simulate('change', {
-      target: {
-        final_price: 'final_price',
-        value: 'laptop'
-      }
-    })
   })
 
   it('should be action onSubmit form', () => {

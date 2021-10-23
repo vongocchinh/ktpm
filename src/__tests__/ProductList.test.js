@@ -11,9 +11,9 @@ describe('ProductList test', () => {
 
     store = mockStore([
       {
+        id:'test id',
         name: 'test name',
         desc: 'test desc',
-        price: 'test price'
       }
     ])
   })
