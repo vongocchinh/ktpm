@@ -4,14 +4,14 @@ import { mount } from 'enzyme'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import '../setupTest'
-import EditProduct from '../pages/EditProduct'
+import EditTodo from '../pages/EditTodo'
 
 const initialState = {}
 const mockStore = configureStore()
 let wrapper
 let store
 
-describe('EditProduct test', () => {
+describe('EditTodo test', () => {
   const mockSubmit = jest.fn()
   window.alert = jest.fn()
 
@@ -20,7 +20,7 @@ describe('EditProduct test', () => {
     wrapper = mount(
       <Provider store={store}>
         <BrowserRouter>
-          <EditProduct />
+          <EditTodo />
         </BrowserRouter>
       </Provider>
     )
@@ -35,10 +35,16 @@ describe('EditProduct test', () => {
       }
     })
     // input desc
-    wrapper.find('#desc').simulate('change', {
+    wrapper.find('#status').simulate('change', {
       target: {
-        desc: 'desc',
-        value: 'laptop bekas'
+        name: 'status',
+        value: false
+      }
+    })
+    wrapper.find('#priority').simulate('change',{
+      target: {
+        name: 'priority',
+        value: 0
       }
     })
   })

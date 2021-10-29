@@ -1,39 +1,32 @@
-import React from 'react'
-import './App.css'
-import './index.css'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
-import AddProduct from './pages/AddProduct'
-import EditProduct from './pages/EditProduct'
-import ProductList from './pages/ProductList'
+import React from "react";
+import "./App.css";
+import "./index.css";
+// import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore, compose } from "redux";
+import Reducer from "./redux/Store";
+import { applyMiddleware } from "redux";
+import { createBrowserHistory } from "history";
 
-import { Provider } from 'react-redux'
-import { createStore, compose, applyMiddleware } from 'redux'
-import Reducer from './redux/Store'
+import thunk from "redux-thunk";
 
+import { ConnectedRouter, routerMiddleware } from "connected-react-router";
+import RouterLogin from "./router/routerLogin/routerLogin";
+export const history = createBrowserHistory();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(Reducer, composeEnhancer(
-  applyMiddleware()),
+export const store = createStore(
+  Reducer(history),
+  composeEnhancer(applyMiddleware(thunk, routerMiddleware(history)))
 );
 
+const App = () => {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <RouterLogin />
+      </ConnectedRouter>
+    </Provider>
+  );
+};
 
-class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div>
-              <div className='main'>
-                <Switch>
-                  <Route path='/' component={ProductList} exact />
-                  <Route path='/add' component={AddProduct} exact />
-                  <Route path='/edit/:id' component={EditProduct} exact />
-                </Switch>
-              </div>
-          </div>
-        </BrowserRouter>
-      </Provider>
-    )
-  }
-}
-
-export default App
+export default App;

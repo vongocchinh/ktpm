@@ -29,7 +29,7 @@ describe("async actions", () => {
           expect(store.getActions()).toEqual(expectedActionsFail);
         });
     });
-    it("creates AUTH_USER if user login in", () => {
+    it("login if user login in", () => {
         nock(API_URL)
           .post("/auth/login")
           .reply(200, { data: 'login success' });

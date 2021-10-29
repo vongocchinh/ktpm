@@ -1,11 +1,11 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import configureStore from 'redux-mock-store'
-import ProductList from '../pages/ProductList'
+import TodoList from '../pages/TodoList'
 import '../setupTest'
 
 let store
-describe('ProductList test', () => {
+describe('TodoList test', () => {
   beforeEach(() => {
     const mockStore = configureStore()
 
@@ -18,8 +18,8 @@ describe('ProductList test', () => {
     ])
   })
 
-  it('should render the component productlist from store', () => {
-    const wrapper = shallow(<ProductList store={store} />)
+  it('should render the component TodoList from store', () => {
+    const wrapper = shallow(<TodoList store={store} />)
     expect(wrapper).not.toBe(null)
   })
 })
