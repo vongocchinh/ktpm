@@ -1,4 +1,5 @@
 module.exports = {
-  setupTestFrameworkScriptFile: './src/setupTest.js'
+  setupTestFrameworkScriptFile: './src/setupTest.js',
 }
+
 
