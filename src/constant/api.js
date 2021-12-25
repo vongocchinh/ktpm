@@ -1,5 +1,5 @@
-export const localhost="";
+export const localhost="localhost:6969";
 
 export const midpoint={
-    todo:"todo"
+    todo:""
 }

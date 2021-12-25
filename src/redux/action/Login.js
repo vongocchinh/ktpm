@@ -41,9 +41,12 @@ export const loginFail = (message) => {
 export const registerUser = (payload) => {
   var username=payload.username;
   var password=payload.password;
+  console.log(username);
+  console.log(password);
   return (dispatch) => {
     dispatch(registerLoading());
     const response = loginApi.register(username, password);
+    console.log(response);
     if (response.status === 200) {
       dispatch(push("/login"));
       dispatch(registerSuccess());
