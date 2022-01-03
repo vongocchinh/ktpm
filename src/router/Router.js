@@ -1,15 +1,28 @@
-import React from "react";
-import { Route} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route } from "react-router-dom";
 import EditTodo from "../pages/EditTodo";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
 import TodoList from "../pages/TodoList";
+import { isAuthenticatedRequest } from "../redux/actions/userAction";
 import AddTodo from "./../pages/AddTodo";
-import Layout from "./Layout";
+import PrivateRoute from "./PrivateRoute";
+
 export default function Router() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(isAuthenticatedRequest());
+  }, [dispatch]);
+
   return (
-    <Layout>
-        <Route exact={true} component={TodoList} path="/" />
-        <Route exact={false} component={EditTodo} path="/edit/:id" />
-        <Route exact={false} component={AddTodo} path="/add" />
-    </Layout>
+    <>
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+      <PrivateRoute exact component={TodoList} path="/" />
+      <PrivateRoute exact component={EditTodo} path="/edit/:id" />
+      <PrivateRoute exact component={AddTodo} path="/add" />
+    </>
   );
 }

@@ -1,67 +1,75 @@
-.container-login{
-    width: 100%;
-    height: 100vh;
-    background-color: #2148C0;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.container-login {
+  width: 100%;
+  height: 100vh;
+  background-color: #2148c0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
-.login__content{
-    width: 300px;
-    height:300px;
-    background-color: transparent;
+.login__content {
+  width: 300px;
+  height: 300px;
+  background-color: transparent;
 }
 
-.login__content form{
-    width: 100%;
-    height: auto;
-    display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
-    flex-direction: column;
+.login__content form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
 }
 
-.login__content form input[type="text"]{
-    width: 100%;
-    height: 35px;
-    outline: none;
-    border: 1px solid white;
-    background-color: transparent;
-    margin: 5px;
-    border-radius: 5px;
-    padding-left: 10px;
-    color: white;
+.login__content form input[type="text"],
+.login__content form input[type="password"] {
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border: 1px solid white;
+  background-color: transparent;
+  margin: 5px;
+  border-radius: 5px;
+  padding-left: 10px;
+  color: white;
+}
+.login__content form input[type="text"]::placeholder,
+.login__content form input[type="password"]::placeholder {
+  color: rgba(255, 255, 255, 0.734);
+}
 
+.login__content form input[type="submit"] {
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border: 1px solid white;
+  background-color: white;
+  margin: 5px;
+  border-radius: 5px;
+  padding-left: 10px;
+  color: #2148c0;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 20px;
 }
-.login__content form input[type="text"]::placeholder{
-    color: rgba(255, 255, 255, 0.734);
+.login__content form p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+}
+.register--link {
+  font-size: 14px;
+  color: white;
+  text-align: right;
+  margin-top: 5px;
+  text-decoration: underline;
 }
 
-.login__content form input[type="submit"]{
-    width: 100%;
-    height: 35px;
-    outline: none;
-    border: 1px solid white;
-    background-color: white;
-    margin: 5px;
-    border-radius: 5px;
-    padding-left: 10px;
-    color: #2148C0;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 20px;
-}
-.login__content form p{
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: white;
-    text-align: center;
-}
-.register--link{
-    font-size: 14px;
-    color: white;
-    text-align: right;
-    margin-top: 5px;
-    text-decoration: underline;
+.form__error {
+  text-align: left;
+  color: #ef4444;
+  font-size: 14px;
+  margin: 5px;
 }

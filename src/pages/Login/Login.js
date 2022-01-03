@@ -1,35 +1,49 @@
-import React, { useState } from "react";
-import "./../styles/login.css";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import { login } from './../../redux/action/Login';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { loginRequest } from "../../redux/actions/userAction";
+import "./../styles/login.css";
 
-function Login(props) {
-  const [login, setLogin] = useState({
-    username: "",
-    password: "",
+const schema = yup.object({
+  username: yup.string().required(),
+  password: yup.string().required().min(4).max(32),
+});
+
+function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
+  const dispatch = useDispatch();
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setLogin({ ...login, [name]: value });
+  const onSubmit = async (values) => {
+    dispatch(loginRequest(values));
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    var loginData = {
-      username: login.username,
-      password: login.password,
-    };
-    props.onLogin(loginData);
-  };
+
   return (
     <>
       <div className="container-login">
         <div className="login__content">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <p>LOGIN</p>
-            <input onChange={onChange} name='username' type="text" placeholder="Username" />
-            <input onChange={onChange} name='password' type="text" placeholder="Password" />
+            <input
+              type="text"
+              placeholder="Username"
+              {...register("username")}
+            />
+            <div className="form__error">{errors.username?.message}</div>
+            <input
+              type="password"
+              placeholder="Password"
+              {...register("password")}
+            />
+            <div className="form__error">{errors.password?.message}</div>
             <input type="submit" value="Login" />
             <Link to="/register" className="register--link">
               Đăng Ký
@@ -40,7 +54,5 @@ function Login(props) {
     </>
   );
 }
-const mapDispatchToProps = (dispatch) => ({
-  onLogin: (payload) => dispatch(login(payload)),
-});
-export default connect(null,mapDispatchToProps)(Login);
+
+export default Login;

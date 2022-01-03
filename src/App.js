@@ -1,30 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
+import { History } from "./components/History/History";
+
+// css
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "./index.css";
-// import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore, compose } from "redux";
-import Reducer from "./redux/Store";
-import { applyMiddleware } from "redux";
-import { createBrowserHistory } from "history";
-
-import thunk from "redux-thunk";
-
-import { ConnectedRouter, routerMiddleware } from "connected-react-router";
-import RouterLogin from "./router/routerLogin/routerLogin";
-export const history = createBrowserHistory();
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(
-  Reducer(history),
-  composeEnhancer(applyMiddleware(thunk, routerMiddleware(history)))
-);
+import Router from "./router/Router";
 
 const App = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    History.setHistory(history);
+  }, [history]);
+
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <RouterLogin />
-      </ConnectedRouter>
+      <Router />
+      <ToastContainer />
     </Provider>
   );
 };
