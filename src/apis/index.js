@@ -71,4 +71,4 @@ export const getTodoRequest = () => instance.get("/todo");
 export const isAuthenticatedRequest = () =>
   instance.get("/user/isAuthenticated");
 export const getTodoByIdRequest = (id) => instance.get("/todo/" + id);
-export const logoutRequest = (body) => instance.delete("/user/log-out", body);
+export const logoutRequest = (body) => instance.delete("/user/logout", body);
