@@ -1,66 +1,56 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import "./styles/Form.css";
-import { connect } from "react-redux";
-import { addTodo } from "../redux/action/todoAction";
-import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createTodoRequest } from "../redux/actions/todoAction";
+import Layout from "./Layout";
 
-const AddTodo = (props) => {
-  const [input, setInput] = React.useState({
-    content: "",
-    status: false,
-    priority: 0,
+const schema = yup.object({
+  content: yup.string().required(),
+  priority: yup.number(),
+});
+
+const AddTodo = () => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setInput({ ...input, [name]: value });
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (input.content) {
-      props.onAddTodo({
-        content: input.content,
-        status: Boolean(input.status),
-        date: new Date(),
-        userId: "1",
-        priority: Number(input.priority),
-      });
-    }
-    e.target.reset();
-    input.content = "";
+  const onSubmit = (values) => {
+    dispatch(createTodoRequest(values));
   };
   return (
-    <div className="add__container">
-    <form id="form-add" className="form-container" onSubmit={onSubmit}>
-      <div>
-        <label htmlFor="name">Content</label>
-        <input id="name" name="content" type="text" onChange={onChange} />
+    <Layout>
+      <div className="add__container">
+        <form
+          id="form-add"
+          className="form-container"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div>
+            <label htmlFor="name">Content</label>
+            <input id="name" {...register("content")} type="text" />
+          </div>
+          <div>
+            <label htmlFor="priority">Priority</label>
+            <input
+              id="priority"
+              min={0}
+              defaultValue={0}
+              max={10}
+              type="number"
+              {...register("priority")}
+            />
+          </div>
+          <div>
+            <button type="submit">Add</button>
+          </div>
+        </form>
       </div>
-      <div className="check_box">
-        <label htmlFor="Status">Status</label>
-        <input id="status" onChange={onChange} name="status" type="checkbox" />
-      </div>
-      <div>
-        <label htmlFor="priority">priority</label>
-        <input
-          id="priority"
-          name="priority"
-          min={0}
-          max={10}
-          type="number"
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <button type="submit">Add</button>
-      </div>
-    </form>
-    </div>
+    </Layout>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddTodo: (payload) => dispatch(addTodo(payload)),
-});
-
-export default withRouter(connect(null, mapDispatchToProps)(AddTodo));
+export default AddTodo;
