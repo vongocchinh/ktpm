@@ -87,11 +87,9 @@ const TodoList = (props) => {
 
   const show = (data) => {
     if (data && data.length > 0) {
-
-      if(filter){
-        data=data.filter(v=>v.content===filter);
+      if (filter) {
+        data = data.filter((v) => v.content === filter);
       }
-
 
       var last = current * newPage;
       var first = last - current;
@@ -104,18 +102,21 @@ const TodoList = (props) => {
               <div className="item__title">
                 <p className="stt__todo">{key + 1}.</p>
                 <p className="content__todo">{value.content}</p>
-                {/* <p>{new Date(value.date).toLocaleDateString()}</p> */}
                 <p className="status__todo">{value.status ? "ON" : "OFF"}</p>
               </div>
               <div className="item__action">
                 <Link to={`/edit/${value._id}`}>
-                  <AiFillEdit className="edit" size={18} />
+                  <p className="edit" style={{ fontSize: "18px" }}>
+                    EDIT
+                  </p>
                 </Link>
-                <AiFillDelete
+                <p
                   className="delete"
                   onClick={() => handleDeleteTodo(value._id)}
-                  size={18}
-                />
+                  style={{ fontSize: "18px" }}
+                >
+                  DELETE
+                </p>
               </div>
             </div>
           );
@@ -130,7 +131,10 @@ const TodoList = (props) => {
       <div className="todo__main">
         <div className="header__main">
           <div className="logo">Todo List</div>
-          <input onBlur={(e)=>setFilter(e.target.value)} className="input-header" />
+          <input
+            onBlur={(e) => setFilter(e.target.value)}
+            className="input-header"
+          />
           <div className="btn__add">
             <Link className="btn__add__content" to="/add">
               Add
