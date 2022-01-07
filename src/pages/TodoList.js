@@ -12,6 +12,7 @@ const TodoList = (props) => {
   const dispatch = useDispatch();
   const [current, setCurrent] = React.useState(7);
   const [newPage, setNewPage] = React.useState(1);
+  const [filter, setFilter] = React.useState("");
 
   const handleDeleteTodo = (id) => {
     dispatch(deleteTodoRequest(id));
@@ -86,6 +87,12 @@ const TodoList = (props) => {
 
   const show = (data) => {
     if (data && data.length > 0) {
+
+      if(filter){
+        data=data.filter(v=>v.content===filter);
+      }
+
+
       var last = current * newPage;
       var first = last - current;
 
@@ -122,7 +129,8 @@ const TodoList = (props) => {
     <Layout>
       <div className="todo__main">
         <div className="header__main">
-          <div className="logo">Logo</div>
+          <div className="logo">Todo List</div>
+          <input onBlur={(e)=>setFilter(e.target.value)} className="input-header" />
           <div className="btn__add">
             <Link className="btn__add__content" to="/add">
               Add

@@ -11,7 +11,11 @@ function Layout(props) {
   return (
     <>
       <div className="header">
-        <button onClick={logout}>Logout</button>
+        <div className="btn__add">
+          <button className="btn__add__content" onClick={logout}>
+            Logout
+          </button>
+        </div>
       </div>
       <div className="container">{props.children}</div>
     </>
